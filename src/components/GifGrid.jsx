@@ -1,8 +1,12 @@
 // import { useState, useEffect } from "react";
 
 import { GifItem } from "./GifItem";
-import { useFetchGifs } from "../../hooks/useFetchGifs";
+import { useFetchGifs } from "../hooks/useFetchGifs";
 // import { getGifs } from "../../helpers/getGifs";
+
+import PropTypes from 'prop-types';
+
+import { removeAccents } from '../helpers/utilities'
 
 export const GifGrid = ({ category, onRemoveCategory }) => {
 
@@ -40,7 +44,7 @@ export const GifGrid = ({ category, onRemoveCategory }) => {
                 // <LoadingMessage isLoading={ isLoading } />
             }
             {
-                !isLoading && (<button onClick={ onClickBtnRemove }>Remover</button>)
+                !isLoading && (<button onClick={ onClickBtnRemove } data-testid={`btn-remove-${removeAccents(category)}`} aria-label="btn-remove">Remover</button>)
             }
 
             <div className="card-grid">
@@ -56,3 +60,7 @@ export const GifGrid = ({ category, onRemoveCategory }) => {
         </>
     );
 };
+
+GifGrid.propTypes = {
+    category: PropTypes.string.isRequired
+}
